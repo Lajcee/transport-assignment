@@ -1,0 +1,11 @@
+@mixin dimension ($w,$h){
+width: $w;
+height: $h;
+}
+
+@mixin headings-type($fs,$fw,$ta,$c){
+  font-size: $fs;
+  font-weight: $fw;
+  text-align: $ta;
+  color: $c;
+}

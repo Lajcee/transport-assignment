@@ -1,0 +1,60 @@
+$white: whitesmoke; //bg color
+$primary: #97BE86;  //light green color
+$secondary:#2f3c8b; //dark blue
+$light: #b2c0d6; //light blue
+$dark: #293688;  //dark green
+$info: #ECD979; //yellow
+$success: #F26859; //pink
+// $jumbotron-bg : #262326; //jumbotron background
+$display1-size : 5rem;
+$display2-size : 4rem;
+$display3-size : 3rem;
+$display4-size : 2rem;
+$headings-font-family : "Oxygen";
+$spacer: 2rem !default; //margin and padding overall spacing size
+
+@import 'landing';
+@import 'gallery';
+@import 'cards';
+@import 'map';
+@import 'mixins';
+@import "../bootstrap-4.5.3/scss/bootstrap.scss";
+
+@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,body
+{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+}
+
+h1{
+  @include headings-type (48px,700,left,$secondary);
+}
+
+h2{
+  @include headings-type (48px,700,center,$info);
+}
+
+h3{
+  @include headings-type (24px, 700,left,$secondary);
+}
+
+p{
+  @include headings-type (16px,700,left,$secondary);
+}
+
+
+.fa-route{
+  height: 100px;
+  width: 100px;
+}
