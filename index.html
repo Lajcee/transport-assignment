@@ -36,25 +36,39 @@
 
 <main id="" class="container">
 
+<section id="top">
 
-<nav class="navbarnavbar-expand-lg ">
-  <div class="clearfix">
-  <img class="logo float-right p-3 " src="images/logo-tourism.png" alt="">
-  </div>
-</nav>
+
+
+  <nav class="navbarnavbar-expand-lg ">
+    <div class="clearfix">
+    <img class="logo float-left mt-3 " src="images/logo-tourism.png" alt="">
+    </div>
+  </nav>
 
   <div class="row clearfix">
-    <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+
+    <div class="col-12 col-xs-12  col-sm-12 col-md-10 col-lg-5 col-xl-5">
+      <div class="col-xs-12 col-sm-12 mobile rounded float-right">
+          <img class="mobile-img" src="images/carbg.png" alt="landing-image">
+        </div>
+
       <h1 class="mt-5 pt-5">Need a ride?</h1>
       <h3 class="mt-3 ">Tourism New Zealand offers a range of high-quality,
         safe & secure vehicals to rent at an affordable price!
         Get yours in just a few easy steps.</h3>
     </div>
-    <div class="col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7 rounded float-right">
+
+    <div class="col-12 col-xs-12  col-sm-12 col-md-10 col-lg-7 col-xl-7 rounded float-right">
         <img class="landing-img m-5" src="images/carbg.png" alt="landing-image">
       </div>
+
   </div>
 
+</section>
+
+
+<section id="form">
 
 <!-- STEP ONE SECTION-->
     <h2 class="text-left my-3">1.</h2>
@@ -64,14 +78,15 @@
 
 
          <div class="col-12 col-sm-11 col-md-10 col-lg-3 col-xl-3 text-left">
-          <select class="sortBtn text-white bg-light p-2 rounded-pill border-light my-2"  id="sortBtn">
+          <select class="sortBtn text-white bg-light p-2 rounded-pill border-light my-2"  id="people">
             <option class="" value="Number of people"></option>
-            <option value="one">One</option>
-            <option value="two">Two</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
             <option value="three">Three</option>
             <option value="four">Four</option>
             <option value="five">Five</option>
           </select>
+          <p>Max number of seats is 6</p>
         </div>
 
       </div>
@@ -88,15 +103,99 @@
           <div class="row clearfix">
 
             <!-- MAP filter-->
-            <div id="map" class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-
+            <!-- <div id="map" class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+    <input id="start" type="text" name="" value="start">
 
               map
+            </div> -->
+
+
+
+
+            <div id="map"></div>
+
+            <div id="right-panel">
+
+              <!-- date calculation using jqueryui calendar -->
+              <h4 class="text-info"> Dates of my journey </h4>
+
+              <label for="startDate">Enter your start date</label>
+              <input id="startDate" class="form-control" type="text" >
+
+              <label for="endDate">Enter your end date</label>
+              <input id="endDate" class="form-control" type="text" >
+
+              <input id="calculateDays" type="button"  value="Calculate days" class="btn btn-lg btn-dark text-light my-2">
+
+              <!-- result of calculated days -->
+              <label for="days">Number of days</label>
+              <input id="days" type="text">
+
+
+              <hr id="places"  class="bg-info"/>
+
+              <div>
+                <b>Start:</b>
+                <div id="locationField1">
+                  <input id="start" class="form-control" placeholder="Enter a city" type="text" />
+                </div>
+                <br />
+
+                <b>Waypoints:</b> <br />
+                <i>(Ctrl+Click or Cmd+Click for multiple selection)</i> <br />
+                <select multiple id="waypoints">
+                  <option value="Hamilton, NZ">Hamilton, NZ</option>
+                  <option value="Taupo, NZ">Taupo, NZ</option>
+                  <option value="Hawke's Bay, NZ">Hawke's Bay, NZ</option>
+                  <option value="Rororua, NZ">Rororua, NZ</option>
+                </select>
+                <br />
+                <br />
+
+                <b>End:</b>
+                <div id="locationField2">
+                  <input id="end" class="form-control" placeholder="Enter a city" type="text" />
+                </div>
+                <br />
+
+                <input type="submit" id="submit" class="animated bounce" />
+              </div>
+              <br />
+              <br />
+              <div id="directions-panel" class="animated bounce"></div>
             </div>
 
 
-              <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-              right side
+
+
+
+
+
+
+
+
+              <!-- <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                <input id="start" type="text" name="" value="start"> -->
+                <!-- <select class="sortBtn text-white bg-light p-2 rounded-pill border-light my-2"  id="sortBtn">
+                  <option class="Start destination" value="Start destination"></option>
+                  <option value="">Start destination</option>
+                  <option value="one">One</option>
+                  <option value="two">Two</option>
+                  <option value="three">Three</option>
+                  <option value="four">Four</option>
+                  <option value="five">Five</option>
+                </select> -->
+
+<!--
+              <input id="end" type="text" name="" value="end"> -->
+                <!-- <select class="sortBtn text-white bg-light p-2 rounded-pill border-light my-2"  id="sortBtn">
+                  <option class="" value="E destination"></option>
+                  <option value="one">One</option>
+                  <option value="two">Two</option>
+                  <option value="three">Three</option>
+                  <option value="four">Four</option>
+                  <option value="five">Five</option>
+                </select> -->
               </div>
             </div>
 
@@ -145,7 +244,12 @@
 
 </div>
 
+</section>
+
 <!-- STEP THREE SECTION END-->
+
+
+<section id="insurance">
 
 
 <!-- SAFE & SECURE SECTION -->
@@ -164,17 +268,20 @@
   </div>
 </div>
 
+</section>
 <!-- SAFE & SECURE SECTION ENDS -->
 
+
+<section id="reviews">
 
 
 <!-- REVIEWS SECTION -->
 <div class="mt-5 ">
-    <h3 class="text-secondary mt-3  mb-3 text-left ">Trusted by customers</h3>
+    <h3 class="text-secondary my-3 text-left ">Trusted by customers</h3>
   <div class="row clearfix">
 
-  <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-    <div class="card shadow bg-white rounded border-0 mr-2" style="width: 20rem;">
+  <div class="col-12 col-xs-12 col-sm-12 col-md-11 col-lg-4 col-xl-4 m-auto">
+    <div class="card shadow bg-white rounded border-0 mt-2">
   <img class="card-img-top" src="images/p-1.png" alt="Katie Smith">
   <div class="card-body bg-light">
     <h5 class="card-title">Katie Smith</h5>
@@ -185,8 +292,8 @@
 </div>
 </div>
 
-<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-  <div class="card shadow bg-white rounded border-0 ml-2" style="width: 20rem;">
+<div class="col-12 col-xs-12 col-sm-12 col-md-11 col-lg-4 col-xl-4">
+  <div class="card shadow bg-white rounded border-0 mt-2">
 <img class="card-img-top" src="images/p-2.png" alt="Katie Smith">
 <div class="card-body bg-light " >
   <h5 class="card-title">Leon Taurarua</h5>
@@ -197,8 +304,8 @@
 </div>
 </div>
 
-<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-  <div class="card shadow bg-white roundedborder-0 ml-3" style="width:20rem;">
+<div class="col-12 col-xs-12  col-sm-12 col-md-11 col-lg-4 col-xl-4">
+  <div class="card shadow bg-white roundedborder-0 mt-2">
 <img class="card-img-top" src="images/p-3.png" alt="Katie Smith">
 <div class="card-body bg-light">
   <h5 class="card-title">David Wilson</h5>
@@ -212,12 +319,14 @@
   </div>
 </div>
 
+</section>
+
 <!-- SAFE & SECURE SECTION ENDS -->
 
 <!-- INSTAGRAM SECTION -->
 
  <div class="text-left mt-5">
-  <h3>Tag us in your pictures! @TourismNZ on Instagram</h3>
+  <h3>Tag us in your pictures on <a href="https://www.instagram.com/purenewzealand/?hl=en">Instagram</a></h3>
   </div>
 
   <div class="row clearfix">
@@ -290,11 +399,12 @@
 
 <!-- INSTAGRAM SECTION ENDS -->
 
+<section id="about">
 
 <!-- ABOUT SECTION -->
 <div class="mt-5">
   <div class="bg-white row clearfix">
-  <div class="bg-white col-12 col-sm-12 col-md-6 col-lg-7 col-xl-7">
+  <div class="bg-white col-12 col-sm-12 col-md-10 col-lg-7 col-xl-7">
 
 
     <h3 class="text-secondary mt-3 text-left p-2">About</h3>
@@ -330,6 +440,10 @@
 </div>
 </div>
 
+</section>
+
+<!-- ABOUT SECTION END -->
+
 
 <!-- Footer -->
 <footer class="page-footer font-small mdb-color lighten-3 pt-4">
@@ -344,11 +458,11 @@
       <div class="col-md-4 col-lg-3 mr-auto my-md-4 my-0 mt-4 mb-1">
 
         <!-- Content -->
-        <h5 class="font-weight-bold text-uppercase mb-4">Footer Content</h5>
-        <p>Here you can use rows and columns to organize your footer content.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit amet numquam iure provident voluptate
-          esse
-          quasi, veritatis totam voluptas nostrum.</p>
+        <h5 class="font-weight-bold text-uppercase mb-4">More info</h5>
+        <p>Please contact Tourism New Zealand , or visit our main website at <a href="https://www.tourismnewzealand.com/">Tourism New Zealand</a>
+        for more information, accomodation and road trip journeys.</p>
+        <p>Thank you kindly and we hope you enjoy our services.</p>
+
 
       </div>
       <!-- Grid column -->
@@ -359,27 +473,32 @@
       <div class="col-md-2 col-lg-2 mx-auto my-md-4 my-0 mt-4 mb-1">
 
         <!-- Links -->
-        <h5 class="font-weight-bold text-uppercase mb-4">About</h5>
+        <h5 class="font-weight-bold text-uppercase mb-4">Links</h5>
 
         <ul class="list-unstyled">
           <li>
             <p>
-              <a href="#!">PROJECTS</a>
+              <a href="#top">Back to top</a>
             </p>
           </li>
           <li>
             <p>
-              <a href="#!">ABOUT US</a>
+              <a href="#form">Quick form</a>
             </p>
           </li>
           <li>
             <p>
-              <a href="#!">BLOG</a>
+              <a href="#insurance">Safe & Secure</a>
             </p>
           </li>
           <li>
             <p>
-              <a href="#!">AWARDS</a>
+              <a href="#reviews">Testimonials</a>
+            </p>
+          </li>
+          <li>
+            <p>
+              <a href="#about">About</a>
             </p>
           </li>
         </ul>
@@ -398,19 +517,19 @@
         <ul class="list-unstyled">
           <li>
             <p>
-              <i class="fas fa-home mr-3"></i> New York, NY 10012, US</p>
+              <i class="fas fa-home mr-3"></i> 1 Nelson St, Auckland</p>
           </li>
           <li>
             <p>
-              <i class="fas fa-envelope mr-3"></i> info@example.com</p>
+              <i class="fas fa-envelope mr-3"></i> PO Box 91 893, Auckland</p>
           </li>
           <li>
             <p>
-              <i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
+              <i class="fas fa-phone mr-3"></i>+64 9 914 4780</p>
           </li>
           <li>
             <p>
-              <i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+              <i class="fas fa-print mr-3"></i> tnz.govt.nz</p>
           </li>
         </ul>
 
@@ -425,21 +544,17 @@
         <!-- Social buttons -->
         <h5 class="font-weight-bold text-uppercase mb-4">Follow Us</h5>
 
-        <!-- Facebook -->
-        <a type="button" class="btn-floating btn-fb">
-          <i class="fab fa-facebook-f"></i>
-        </a>
         <!-- Twitter -->
-        <a type="button" class="btn-floating btn-tw">
-          <i class="fab fa-twitter"></i>
+        <a type="button" class="btn-floating btn-fb">
+          <a href="https://twitter.com/tourismnz?lang=en"><i class="fab fa-twitter"></i></a>
         </a>
-        <!-- Google +-->
-        <a type="button" class="btn-floating btn-gplus">
-          <i class="fab fa-google-plus-g"></i>
+        <!-- Instagrm-->
+        <a type="button" class="m-1 btn-floating btn-gplus">
+          <a href="https://www.instagram.com/purenewzealand/?hl=en"><i class="fab fa-instagram"></i></a>
         </a>
-        <!-- Dribbble -->
-        <a type="button" class="btn-floating btn-dribbble">
-          <i class="fab fa-dribbble"></i>
+        <!-- Facebook -->
+        <a type="button" class="m-1 btn-floating btn-dribbble">
+          <a href="https://www.facebook.com/purenewzealand/"><i class="fab fa-facebook-f"></i></a>
         </a>
 
       </div>
@@ -453,20 +568,13 @@
 
   <!-- Copyright -->
   <div class="footer-copyright text-center py-3">© 2020 Copyright:
-    <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
+    LajceeMillerDesign
   </div>
   <!-- Copyright -->
 
 </footer>
 <!-- Footer -->
 
-
-
-
-
-
-
-<!-- ABOUT SECTION ENDS -->
 
   </main>
 

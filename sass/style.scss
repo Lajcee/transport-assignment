@@ -58,3 +58,13 @@ p{
   height: 100px;
   width: 100px;
 }
+
+@media only screen and (min-width: 376px) {
+  .mobile-img {
+    display: none;
+  }
+
+  .mobile{
+    display: none;
+  }
+}

@@ -1,7 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap");
-.logo {
-  width: 20px; }
+@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
+  .landing-img {
+    display: none; }
 
+  .logo {
+    width: 80px; }
+
+  .mobile-img {
+    width: 330px;
+    padding: 20px;
+    margin-top: 10px; }
+
+  h1 {
+    font-size: 16px; } }
 .img-wrapper {
   position: relative;
   margin-top: 15px; }
@@ -7957,5 +7968,12 @@ p {
 .fa-route {
   height: 100px;
   width: 100px; }
+
+@media only screen and (min-width: 376px) {
+  .mobile-img {
+    display: none; }
+
+  .mobile {
+    display: none; } }
 
 /*# sourceMappingURL=style.css.map */
