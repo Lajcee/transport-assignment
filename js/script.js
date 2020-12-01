@@ -329,67 +329,81 @@ $('#people').change(function(){
   console.log(people);
 });
 
+
+
 //filter
 function filterVehicles(dayys){
   console.log(dayys, people);
-
+  var carouselImages = [];
   for (i = 0; i < vehicles.length; i++) {
+      console.log(vehicles[i].maxDay, vehicles[i].minDay, vehicles[i].minPeople, vehicles[i].maxpeople);
+    if (((dayys < vehicles[i].maxDay) && (dayys > vehicles[i].minDay)) && ((people > vehicles[i].minPeople) && (people < vehicles[i].maxpeople ))) {
+      console.log(vehicles[i].name);
+      carouselImages.push(vehicles[i].photo);
+      console.log(carouselImages);
 
-    if ((dayys<--) && (dayys>)) && ((dayys <--) && (dayys>))
+
+    }
   }
+  console.log(carouselImages);
+
+      carCarousel(carouselImages);
 }
 
 
+function displayCards(j){
 
+}
 
-carCarousel(name);
+// carCarousel(name);
 //Carousel
 
-function carCarousel(name){
-  var nameArray = [];
-  $('#imageCar').text('');
-  for (i = 0; i < vehicles.length; i++) {
+function carCarousel(images){
+  console.log(images);
+  var headers = ['header1','header2','header3'];
+  var i;
+  $('#carouselImages').text('Carousel');
+  for (i = 0; i < headers.length; i++) {
+    // $('#carouselImages').html('<h1>Carousel display </h1>')
+    $('#carouselImages').append('<h1>' + headers[i] + ' </h1>');
 
-    if (vehicles[i].name === vehicles) {
-      breedArray.push(vehicles[i].photo);
-      // console.log(cats[i].description);
-      $('#imageVehicles').append('<p class="text-danger lead">' + vehicles[i].name+ vehicles[i].type+
-      vehicles[i].year+ vehicles[i].minPeople+ vehicles[i].maxPeople+vehicles[i].minDay+
-      vehicles[i].maxDay+ vehicles[i].cost+vehicles[i].fuel+'<p>' );
-    } //end of if
+    // '<div class="carousel-item"> ' +
+    //                             '  <img class="d-block w-100 bg-dark" src="images/van1.png" alt="First slide">' +
+    //                             '</div>'
+
   } //end of for
 
+} // carCarousel
 
 
-
-  $('#imageVehicles').append(
-    '  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">' +
-    '  <ol class="carousel-indicators">' +
-    '    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>' +
-    '    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>' +
-    '    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>' +
-    '  </ol>' +
-    '  <div class="carousel-inner">' +
-    '    <div class="carousel-item active">' +
-    '      <img class="d-block w-100" src="images/' + '" alt="First slide">' +
-    '    </div>' +
-    '    <div class="carousel-item">' +
-    '      <img class="d-block w-100" src="images/' +  '"alt="Second slide">' +
-    '    </div>' +
-    '    <div class="carousel-item">' +
-    '      <img class="d-block w-100" src="images/' + '" alt="Third slide">' +
-    '    </div>' +
-    '  </div>' +
-    '  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">' +
-    '    <span class="carousel-control-prev-icon" aria-hidden="true"></span>' +
-    '    <span class="sr-only">Previous</span>' +
-    '  </a>' +
-    '  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">' +
-    '    <span class="carousel-control-next-icon" aria-hidden="true"></span>' +
-    '    <span class="sr-only">Next</span>' +
-    '  </a>' +
-    '</div>'); //end of imageCar html
-
-} //end of Carousel
+//   $('#imageVehicles').append(
+//     '  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">' +
+//     '  <ol class="carousel-indicators">' +
+//     '    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>' +
+//     '    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>' +
+//     '    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>' +
+//     '  </ol>' +
+//     '  <div class="carousel-inner">' +
+//     '    <div class="carousel-item active">' +
+//     '      <img class="d-block w-100" src="images/' + '" alt="First slide">' +
+//     '    </div>' +
+//     '    <div class="carousel-item">' +
+//     '      <img class="d-block w-100" src="images/' +  '"alt="Second slide">' +
+//     '    </div>' +
+//     '    <div class="carousel-item">' +
+//     '      <img class="d-block w-100" src="images/' + '" alt="Third slide">' +
+//     '    </div>' +
+//     '  </div>' +
+//     '  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">' +
+//     '    <span class="carousel-control-prev-icon" aria-hidden="true"></span>' +
+//     '    <span class="sr-only">Previous</span>' +
+//     '  </a>' +
+//     '  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">' +
+//     '    <span class="carousel-control-next-icon" aria-hidden="true"></span>' +
+//     '    <span class="sr-only">Next</span>' +
+//     '  </a>' +
+//     '</div>'); //end of imageCar html
+//
+// } //end of Carousel
 
 // });
