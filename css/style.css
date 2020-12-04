@@ -44,8 +44,8 @@ table {
   font-size: 12px; }
 
 #map {
-  height: 400px;
-  width: 400px; }
+  height: 900px;
+  width: 700px; }
 
 #left-panel {
   margin: 20px;
@@ -7942,7 +7942,8 @@ html, body {
   height: 100%;
   margin: 0px;
   padding: 0px;
-  overflow-x: hidden; }
+  overflow-x: hidden;
+  scroll-behavior: smooth; }
 
 h1 {
   font-size: 48px;
@@ -7990,7 +7991,13 @@ p {
   opacity: 1;
   /* Firefox */ }
 
-.mapImage {
-  width: 350px; }
+.card {
+  transition: all .2s ease-in-out; }
+
+.card:hover {
+  transform: scale(1.1); }
+
+.card {
+  border: none; }
 
 /*# sourceMappingURL=style.css.map */
