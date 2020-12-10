@@ -149,7 +149,6 @@ function initMap() {
   });
 
 
-
   //////////////////////////////////////////////////////////////////////////
       //from autocomplete
       var start = new google.maps.places.Autocomplete(
@@ -168,6 +167,7 @@ function initMap() {
            }
          );//autocomplete end_address
   //////////////////////////////////////////////////////////////////////////
+
 
 
 
@@ -274,9 +274,11 @@ function initMap() {
           const summaryPanel = document.getElementById("directions-panel");
 
           summaryPanel.innerHTML = "";
-          var rentalCost = d * vehicles[k].cost;
+          var total;
            var grandTotal = 0;
            var grandTotal = 0;
+           var rentalCost = d * vehicles[k].cost;
+
           // For each route, display summary information.
           for (let i = 0; i < route.legs.length; i++) {
             const routeSegment = i + 1;
@@ -287,18 +289,20 @@ function initMap() {
             summaryPanel.innerHTML +=
               route.legs[i].distance.text + " and it takes " + route.legs[i].duration.text + " to reach."+ "<br><br>";
               console.log(parseInt(route.legs[i].distance.text));
-             var total = parseInt(route.legs[i].distance.text) / 100 * 2 * vehicles[k].fuel ;
+              total[i] = parseInt(route.legs[i].distance.text) / 100 * 2 * vehicles[k].fuel ;
+             console.log('rentalCost', rentalCost);
+
+             var cost = total + rentalCost;
+             console.log('total', total);
+             console.log('cost', cost);
+             totalCost.push(cost);
+             console.log('totalCost', totalCost);
 
 
 
-          }
-          console.log('rentalCost', rentalCost);
 
-          var cost = total + rentalCost;
-          totalCost.push(cost);
-           console.log('totalCost', totalCost);
            displayCards(k);
-           cardModal(k,totalCost);
+           cardModal(k,cost);
 
            function displayCards(j){
              $('#result').append( '<div class="col-xs-12 col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 mx-auto">' +
@@ -320,6 +324,7 @@ function initMap() {
 
             // Modal
            function cardModal(j, amount){
+             console.log('j',j);
              console.log('amount', amount);
              $('.moreDetails').click(function() {
 
@@ -387,7 +392,7 @@ function initMap() {
              }); // end of moreDetails click event
            } //cardModal
 
-
+         }
 
         } else {
           window.alert("Directions request failed due to " + status);
