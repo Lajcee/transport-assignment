@@ -15,9 +15,10 @@ $spacer: 2rem !default; //margin and padding overall spacing size
 @import 'landing';
 @import 'gallery';
 @import 'cards';
-@import 'map';
 @import 'mixins';
 @import "../bootstrap-4.5.3/scss/bootstrap.scss";
+@import 'map';
+
 
 @import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap');
 
@@ -95,3 +96,59 @@ p{
 .card{
 border: none;
 }
+
+.myOwnModal{
+  width: 100%;
+}
+
+
+// #right-panel {
+//    font-family: "Roboto", "sans-serif";
+//    line-height: 30px;
+//    padding-left: 10px;
+//  }
+//
+//  #right-panel select,
+//  #right-panel input {
+//    font-size: 15px;
+//  }
+//
+//  #right-panel select {
+//    width: 100%;
+//  }
+//
+//  #right-panel i {
+//    font-size: 12px;
+//  }
+//
+//  html,
+//  body {
+//    height: 100%;
+//    margin: 0;
+//    padding: 0;
+//  }
+//
+//  #map {
+//    height: 100%;
+//    float: left;
+//    width: 70%;
+//    height: 100%;
+//  }
+//
+//  #right-panel {
+//    margin: 20px;
+//    border-width: 2px;
+//    width: 20%;
+//    height: 400px;
+//    float: left;
+//    text-align: left;
+//    padding-top: 0;
+//  }
+//
+//  #directions-panel {
+//    margin-top: 10px;
+//    background-color: #ffee77;
+//    padding: 10px;
+//    overflow: scroll;
+//    height: 174px;
+//  }

@@ -11,6 +11,9 @@
 6. CSS Style guide
 7. Commas
 8. Semicolon
+9. Loops
+10. Objects
+11. Arrays
 
 
 
@@ -114,3 +117,12 @@ if (rap === 'checked') {
 inputArray.push('rap') ;  
 console.log(inputArray) ;  
 }
+
+### 9. Loops
+Loops allow an action to be repeated any number of times (or even no times).
+There are many different variations of
+
+### 10. Objects
+
+
+### 11. Arrays

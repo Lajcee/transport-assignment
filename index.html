@@ -31,6 +31,7 @@
 </head>
   <body class="bg-white">
 
+
     <main  class="container">
 
 <section id="top">
@@ -53,7 +54,7 @@
       <h1 class="mt-5 pt-5">Need a ride?</h1>
         <h3 class="mt-3 ">Tourism New Zealand offers a range of high-quality,
         safe & secure vehicals to rent at an affordable price!
-        Get yours in just a few easy steps.
+        Get yours in just five easy steps.
       </h3>
     </div>
 
@@ -67,6 +68,8 @@
 
 
 <section id="form">
+
+
 
 <!-- STEP ONE SECTION-->
     <h2 class="text-left my-3">1.</h2>
@@ -86,28 +89,47 @@
           <p>Max number of seats is 5</p>
         </div>
 
-        <div class="col-12 col-sm-11 col-md-4 col-lg-4 col-xl-4">
-
-        </div>
 
       </div>
 <!-- STEP ONE SECTION END-->
 
 
-
 <!-- STEP TWO SECTION-->
         <h2 class="mt-5 text-left">2.</h2>
-         <div class="text-left">
+         <div class="text-left my-2">
           <h3>Enter your start and end destination places</h3>
+          </div>
+
+<div class="row clearfix">
+
+  <div class="bg-transparent p-1" id="locationField1">
+  <input class="border-0 rounded-pill p-2 bg-light text-white" placeholder="Start location" id="start" type="text"  value="">
+
+  </div>
+  <br/>
+
+
+  <div class="bg-transparent  p-1" id="locationField2">
+  <input class="border-0 p-2 rounded-pill bg-light text-white" placeholder="End location"  id="end" type="text"  value="">
+  </div>
+  <br/>
+</div>
+
+<!-- STEP THREE SECTION-->
+        <h2 class="mt-5 text-left">3.</h2>
+         <div class="text-left">
+          <h3 class="mt-3">Enter your start and end dates</h3>
           </div>
 
 
 
 
         <div class="row clearfix">
+
             <div class="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-8 mt-2" id="map">
             </div>
             <div id="right-panel" class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 ">
+
 
               <!-- date calculation using jqueryui calendar -->
             <h5 class="">Dates</h5>
@@ -118,37 +140,19 @@
 
               <div>
 
-          <h5>Start location:</h5>
-
-         <div class="bg-light p-1" id="locationField1">
-           <select class="bg-transparent border-0" multiple id="start">
-             <option class="border-0" value="Hamilton, NZ">Hamilton, NZ</option>
-             <option value="Taupo, NZ">Taupo, NZ</option>
-             <option value="Hawke's Bay, NZ">Hawke's Bay, NZ</option>
-             <option value="Rotorua, NZ">Rotorua, NZ</option>
-           </select>
-         </div>
-         <br/>
 
 
-         <b>
-          <h5>End location:</h5>
-        </b>
-         <div class="bg-light p-1" id="locationField2">
-           <select class="bg-transparent border-0" multiple id="end">
-             <option value="Hamilton, NZ">Hamilton, NZ</option>
-             <option value="Taupo, NZ">Taupo, NZ</option>
-             <option value="Hawke's Bay, NZ">Hawke's Bay, NZ</option>
-             <option value="Rotorua, NZ">Rotorua, NZ</option>
-           </select>
-         </div>
-         <br/>
 
          <input type="submit" id="submit" class="animated bounce btn p-2  btn-sm btn-success rounded-pill text-white my-2" />
        </div>
        <br/>
        <br/>
        <div id="directions-panel" class="animated bounce bg-transparent"></div>
+
+
+
+
+
      </div>
   </div>
 
@@ -159,7 +163,7 @@
 
 <!-- STEP THREE SECTION-->
 
-      <h2 class="mt-5 text-left">3.</h2>
+      <h2 class="mt-5 text-left">4.</h2>
        <div class="text-left">
         <h3>Select from the avaialable vehicles</h3>
         <div id="result" class="row clearfix result">
@@ -175,8 +179,13 @@
 <!-- Result container -->
 <div id="confirm" class="row mx-auto clearfix ">
 </div>
+
+
+
+
  <!-- Modal -->
   <div class="modal fade bg-transparent" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
  </div>
   <!--end of Modal-->
 
