@@ -112,17 +112,79 @@ inputArray.push('rap')
 console.log(inputArray)  
 }
 
-#####  bad example
+#####  good example
 if (rap === 'checked') {  
 inputArray.push('rap') ;  
 console.log(inputArray) ;  
 }
 
 ### 9. Loops
-Loops allow an action to be repeated any number of times (or even no times).
-There are many different variations of
+Loops allow an action to be repeated any number of times (or even no times)
+based on a condition.
+There are many different variations of loops such as  for, of and while.
+
+#####  bad example
+var i = 2;
+var len = cars.length;
+var text = "";
+for (; i < len; i++) {
+  text += cars[i] + ;
+}
+
+
+#####  good example
+var i = 2;
+var len = cars.length;
+var text = "";
+for (; i < len; i++) {
+  text += cars[i] + "<br>";
+}
 
 ### 10. Objects
 
+Objects assign a simple value under the property
+to a variable (car for example). Each car has the same
+properties but different values.
+
+#####  bad example
+{
+  id : 101 ,
+  name : 'Nissan Leaf',
+  type : 'Large car',
+  photo : 'car1.png'
+
+
+{
+  id : 101 ,
+  name : 'Nissan Leaf',
+  type : 'Large car',
+  photo : 'car1.png'
+}
+
+
+#####  good example
+id : 101 ,
+name : 'Nissan Leaf',
+type : 'Large car',
+photo : 'car1.png',
+
+
+{
+id : 102 ,
+name : 'Nissan Leaf',
+type : 'Large car',
+photo : 'car1.png'
+}
 
 ### 11. Arrays
+
+An array is a numbered variable that can hold more then one value
+at the same times. Array elements can also be classed as a special type of object.
+
+
+#####  bad example
+var points = new Array();
+
+
+#####  good example
+var points = [];    

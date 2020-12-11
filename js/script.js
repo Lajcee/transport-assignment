@@ -1,5 +1,5 @@
 
-var script = '<script src="https://maps.googleapis.com/maps/api/js?key='+ key +'&callback=initMap&libraries=places&v=weekly" async defer></script>';
+var script = '<script src="https://maps.googleapis.com/maps/api/js?key='+ key +'&libraries=places&v=weekly" async defer></script>';
 $(document).ready(function(){
   $('body').append(script);
 });
@@ -136,17 +136,60 @@ var vehicles = [
 
 
 // var days, totalCost;
+// receive input
+var people, days;
+$('#people').change(function(){
 
+  people = parseInt($(this).val());
+});
+
+
+// date calculation
+$('#startDate').datepicker({
+  dateFormat : 'yy-mm-dd',
+  changeMonth : true,
+  minDate :new Date(),
+  maxDate : '+1y',
+  onSelect : function(date){
+    var selectDate = new Date(date);
+    var msecInADay  = 86400000;
+    var stDate = new Date(selectDate.getTime() + msecInADay);
+
+    $('#endDate').datepicker('option', 'minDate', stDate);
+    var enDate = new Date(selectDate.getTime() + 10 * msecInADay);
+
+    $('#endDate').datepicker('option', 'maxDate', enDate);
+
+  }
+
+});
+
+$('#endDate').datepicker({
+  dateFormat : 'yy-mm-dd',
+  changeMonth : true
+});
+
+
+
+function dateDiff(){
+var start = $(startDate).datepicker('getDate');
+var end = $(endDate).datepicker('getDate');
+
+var dateDifference = (end-start)/1000/60/60/24; //to get human readable days
+  return (dateDifference);
+
+}
+
+document.getElementById("submit").addEventListener("click", () => {
+
+  days = dateDiff();
+
+  initMap();
+
+});
 
 function initMap() {
 
-  // receive input
-  var people;
-  $('#people').change(function(){
-
-    people = parseInt($(this).val());
-    console.log('people', people);
-  });
 
 
   //////////////////////////////////////////////////////////////////////////
@@ -170,44 +213,6 @@ function initMap() {
 
 
 
-
-  // date calculation
-  $('#startDate').datepicker({
-    dateFormat : 'yy-mm-dd',
-    changeMonth : true,
-    minDate :new Date(),
-    maxDate : '+1y',
-    onSelect : function(date){
-      var selectDate = new Date(date);
-      var msecInADay  = 86400000;
-      var stDate = new Date(selectDate.getTime() + msecInADay);
-
-      $('#endDate').datepicker('option', 'minDate', stDate);
-      var enDate = new Date(selectDate.getTime() + 10 * msecInADay);
-
-      $('#endDate').datepicker('option', 'maxDate', enDate);
-
-    }
-
-  });
-
-  $('#endDate').datepicker({
-    dateFormat : 'yy-mm-dd',
-    changeMonth : true
-  });
-
-
-
-  function dateDiff(){
-  var start = $(startDate).datepicker('getDate');
-  var end = $(endDate).datepicker('getDate');
-
-  days = (end-start)/1000/60/60/24; //to get human readable days
-    return (days);
-
-  }
-
-
     //directions distance and duration
     const directionsService = new google.maps.DirectionsService();
     const directionsRenderer = new google.maps.DirectionsRenderer();
@@ -224,28 +229,8 @@ function initMap() {
        directionsRenderer.setMap(map);
 
 
-    document.getElementById("submit").addEventListener("click", () => {
 
-
-      // var cardImages;
-      // $('#cardImages');
-      var days = dateDiff();
-      console.log('days', days);
-      var cardImages = [];
-      for (i = 0; i < vehicles.length; i++) {
-        if (((days <= vehicles[i].maxDay) && (days >= vehicles[i].minDay)) && ((people >= vehicles[i].minPeople) && (people <= vehicles[i].maxpeople ))) {
-          cardImages.push(vehicles[i].photo);
-
-
-          calculateAndDisplayRoute(directionsService, directionsRenderer, days, i );
-
-
-        }
-      }
-
-
-    });
-
+calculateAndDisplayRoute(directionsService, directionsRenderer );
 
 
   }//initMap
@@ -256,9 +241,9 @@ function initMap() {
 
 
 
-  function calculateAndDisplayRoute(directionsService, directionsRenderer, d, k) {
+  function calculateAndDisplayRoute(directionsService, directionsRenderer) {
 
-    var totalCost =[];
+
     directionsService.route(
       {
         origin: document.getElementById("start").value,
@@ -270,129 +255,12 @@ function initMap() {
       (response, status) => {
         if (status === "OK") {
           directionsRenderer.setDirections(response);
-          const route = response.routes[0];
-          const summaryPanel = document.getElementById("directions-panel");
 
-          summaryPanel.innerHTML = "";
-          var total;
-           var grandTotal = 0;
-           var grandTotal = 0;
-           var rentalCost = d * vehicles[k].cost;
+          getResponse(response);
 
-          // For each route, display summary information.
-          for (let i = 0; i < route.legs.length; i++) {
-            const routeSegment = i + 1;
-            summaryPanel.innerHTML +=
-              "<b>Route Segment: " + routeSegment + "</b><br>";
-            summaryPanel.innerHTML += route.legs[i].start_address + " to ";
-            summaryPanel.innerHTML += route.legs[i].end_address + "<br>";
-            summaryPanel.innerHTML +=
-              route.legs[i].distance.text + " and it takes " + route.legs[i].duration.text + " to reach."+ "<br><br>";
-              console.log(parseInt(route.legs[i].distance.text));
-              total[i] = parseInt(route.legs[i].distance.text) / 100 * 2 * vehicles[k].fuel ;
-             console.log('rentalCost', rentalCost);
-
-             var cost = total + rentalCost;
-             console.log('total', total);
-             console.log('cost', cost);
-             totalCost.push(cost);
-             console.log('totalCost', totalCost);
+          //
 
 
-
-
-           displayCards(k);
-           cardModal(k,cost);
-
-           function displayCards(j){
-             $('#result').append( '<div class="col-xs-12 col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 mx-auto">' +
-                                     '<div class="card p-1 hover-rise mr-2 mx-auto border-0 text-secondary" style="width: 18rem;">' +
-                                        '<img src="images/' + vehicles[j].photo + '" class="card-img-top" alt="' + vehicles[j].type + '">' +
-                                        '<div class="card-body bg-transparent m-3>' +
-                                         '<h3 class="card-title">'+ vehicles[j].year + '</h3>' +
-                                         '<p class="card-text text-button "> ' + ' ' + '<span class="text-button mt-2">' + vehicles[j].name+ '</span> <br></p>' +
-                                         '<p class="card-text text-button> : ' + ' ' + '<span class="text-button">' +"$"+ vehicles[j].cost + " per day" +  '</span> <br></p>' +
-
-                                         '<button id="' + vehicles[j].id + '" type="button" class="btn text-success moreDetails" data-toggle="modal" data-target="#exampleModal">select  </button>' +
-                                       '</div>' +
-                                     '</div>' +
-                                 '</div>'
-                             ); //append ends here
-
-           }
-
-
-            // Modal
-           function cardModal(j, amount){
-             console.log('j',j);
-             console.log('amount', amount);
-             $('.moreDetails').click(function() {
-
-               $('#exampleModal').text(' '); //clearing the content
-                 $('#exampleModal').html(
-
-           '      <div class="modal-dialog  border-0 ">'+
-           '        <div class="modal-content border-0 ">'+
-
-           '          <div class="modal-header border-0">' +
-           '            <h5 class="modal-title text-dark " id="exampleModalLabel"></h5>' +
-           '            <button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
-           '              <span aria-hidden="true">&times;</span>' +
-           '            </button>' +
-           '          </div>'+
-
-
-           '              <h2 class="text-info">5. Almost there!</h2>' +
-           '           <div id="modalBody" class="modal-body  m-2">' + '<p>' + 'your rental details are as follows: '+'</p>'+
-                      '<h4 class= "text-secondary">' + 'vehicle name: ' + vehicles[j].name + '<br>' + 'Total cost amount: ' + ' NZ $ ' + amount + '</h4>' +
-           '           <p>First, please enter your license details</p>' +
-           '               <input type="text" name="username" placeholder="License number" required class="form-control mb-1 ">' +
-           '               <input type="text" name="username" placeholder="License expiry" required class="form-control "> </div>' +
-
-
-
-           '                   <p class="ml-2">Second, please enter your payment details</p>' +
-           '               </div>'+
-
-           '                       <div class="tab-content border-0 p-2 bg-white">' +
-           '                               <form class="">' +
-           '                                   <div class="form-group"> <label for="username">' +
-           '                                         <p>Card owner</p>' +
-           '                                       </label> <input type="text" name="username" placeholder="Card Owner Name" required class="form-control "> </div>' +
-           '                                   <div class="form-group"> <label for="cardNumber">' +
-           '                                         <p>Card number</p>' +
-           '                                       </label>' +
-           '                                       <div class="input-group"> <input type="text" name="cardNumber" placeholder="Valid card number" class="form-control " required>' +
-           '                                         <div class="input-group-append"> <span class="input-group-text text-muted"> <i class="fab fa-cc-visa mx-1"></i> <i class="fab fa-cc-mastercard mx-1"></i> <i class="fab fa-cc-amex mx-1"></i> </span> </div>' +
-           '                                       </div>' +
-           '                                   </div>' +
-           '                                   <div class="row">' +
-           '                                       <div class="col-sm-8">' +
-           '                                           <div class="form-group"> <label><span class="hidden-xs">' +
-           '                                                     <p>Expiration date</p>' +
-           '                                                   </span></label>' +
-           '                                               <div class="input-group"> <input type="number" placeholder="MM" class="form-control" required> <input type="number" placeholder="YY" name="" class="form-control" required>' +
-           '                                               </div>' +
-           '                                           </div>' +
-           '                                       </div>'  +
-           '                                       <div class="col-sm-4">' +
-           '                                           <div class="form-group mb-4"> <label data-toggle="tooltip" title="Three digit CV code on the back of your card">'+
-           '                                               <h6 class="text-secondary">CVV <i class="fa fa-question-circle d-inline"></i></h6>'+
-           '                                             </label> <input type="text" required class="form-control">'+
-           '                                           </div>'+
-           '                                       </div>'+
-           '                                   </div>'+
-           '                                 <div class="card-footer"> <button type="button" class=" btn btn-success text-white btn-block"> Confirm Payment </button>'+
-           '                               </form>'+
-           '                               </div>'+
-           '            </div>' );
-
-
-
-             }); // end of moreDetails click event
-           } //cardModal
-
-         }
 
         } else {
           window.alert("Directions request failed due to " + status);
@@ -401,21 +269,161 @@ function initMap() {
 
     );
 
+  }//calculateAndDisplayRoute
+
+function getResponse(data){
+
+
+  var cardImages = [];
+  var distance;
+
+
+  const route = data.routes[0];
+  const summaryPanel = document.getElementById("directions-panel");
+
+  summaryPanel.innerHTML = "";
+
+
+  // For each route, display summary information.
+  for (let i = 0; i < route.legs.length; i++) {
+    const routeSegment = i + 1;
+    summaryPanel.innerHTML +=
+      "<b>Route Segment: " + routeSegment + "</b><br>";
+    summaryPanel.innerHTML += route.legs[i].start_address + " to ";
+    summaryPanel.innerHTML += route.legs[i].end_address + "<br>";
+    summaryPanel.innerHTML +=
+      route.legs[i].distance.text + " and it takes " + route.legs[i].duration.text + " to reach."+ "<br><br>";
+     distance = parseInt(route.legs[i].distance.text);
+    }
+
+
+    var j;
+    for (j = 0; j < vehicles.length; j++) {
+      if (((days <= vehicles[j].maxDay) && (days >= vehicles[j].minDay)) && ((people >= vehicles[j].minPeople) && (people <= vehicles[j].maxpeople ))) {
+        // cardImages.push(vehicles[j].photo);
+
+        displayCards(j);
+        cardModal(distance);
+
+
+
+      }
+    }
+
+} //getResponse
+
+
+function displayCards(j){
+  $('#result').append( '<div class="col-xs-12 col-12 col-sm-9 col-md-8 col-lg-4 col-xl-4 mx-auto">' +
+                          '<div class="card m-2 hover-rise mx-auto shadow border-transparent text-secondary" style="width: 18rem;">' +
+                             '<img src="images/' + vehicles[j].photo + '" class="card-img-top" alt="' + vehicles[j].type + '">' +
+                             '<div class="card-body bg-transparent m-3>' +
+                              '<h3 class="card-title">'+ vehicles[j].year + '</h3>' +
+                              '<p class="card-text text-button "> ' + ' ' + '<span class="text-button mt-2">' + vehicles[j].name+ '</span> <br></p>' +
+                              '<p class="card-text text-button> : ' + ' ' + '<span class="text-button">' +"$"+ vehicles[j].cost + " per day" +  '</span> <br></p>' +
+
+                              '<button id="' + vehicles[j].id + '" type="button" class="btn float-right text-white bg-success rounded-pill moreDetails" data-toggle="modal" data-target="#exampleModal">select  </button>' +
+                            '</div>' +
+                          '</div>' +
+                      '</div>'
+                  );
+
   }
+
+
+   // Modal
+  function cardModal(dist){
+
+
+
+
+    $('.moreDetails').click(function() {
+      var i;
+      var rentalCost;
+      for (i = 0; i < vehicles.length; i++) {
+        if ( parseInt(this.id) === vehicles[i].id) {
+
+         rentalCost = vehicles[i].cost;
+
+         total = dist / 100 * 2 * vehicles[i].fuel ;
+
+         var cost = total + rentalCost;
+
+
+      $('#exampleModal').text(' '); //clearing the content
+        $('#exampleModal').html(
+
+  '      <div class="modal-dialog  border-0 ">'+
+  '        <div class="modal-content border-0 ">'+
+
+  '          <div class="modal-header border-0">' +
+  '            <h5 class="modal-title text-dark " id="exampleModalLabel"></h5>' +
+  '            <button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
+  '              <span aria-hidden="true">&times;</span>' +
+  '            </button>' +
+  '          </div>'+
+
+
+  '              <h2 class="text-info">5. Almost there!</h2>' +
+  '           <div id="modalBody" class="modal-body  m-2">' + '<p>' + 'your rental details are as follows: '+'</p>'+
+             '<h4 class= "text-secondary">' + 'vehicle name: ' + vehicles[i].name + '<br>' + 'Total cost amount: ' + ' NZ $ ' + cost + '</h4>' +
+  '           <p>First, please enter your license details</p>' +
+  '               <input type="text" name="username" placeholder="License number" required class="form-control mb-1 ">' +
+  '               <input type="text" name="username" placeholder="License expiry" required class="form-control "> </div>' +
+
+
+
+  '                   <p class="ml-2">Second, please enter your payment details</p>' +
+  '               </div>'+
+
+  '                       <div class="tab-content border-0 p-2 bg-white">' +
+  '                               <form class="">' +
+  '                                   <div class="form-group"> <label for="username">' +
+  '                                         <p>Card owner</p>' +
+  '                                       </label> <input type="text" name="username" placeholder="Card Owner Name" required class="form-control "> </div>' +
+  '                                   <div class="form-group"> <label for="cardNumber">' +
+  '                                         <p>Card number</p>' +
+  '                                       </label>' +
+  '                                       <div class="input-group"> <input type="text" name="cardNumber" placeholder="Valid card number" class="form-control " required>' +
+  '                                         <div class="input-group-append"> <span class="input-group-text text-muted"> <i class="fab fa-cc-visa mx-1"></i> <i class="fab fa-cc-mastercard mx-1"></i> <i class="fab fa-cc-amex mx-1"></i> </span> </div>' +
+  '                                       </div>' +
+  '                                   </div>' +
+  '                                   <div class="row">' +
+  '                                       <div class="col-sm-8">' +
+  '                                           <div class="form-group"> <label><span class="hidden-xs">' +
+  '                                                     <p>Expiration date</p>' +
+  '                                                   </span></label>' +
+  '                                               <div class="input-group"> <input type="number" placeholder="MM" class="form-control" required> <input type="number" placeholder="YY" name="" class="form-control" required>' +
+  '                                               </div>' +
+  '                                           </div>' +
+  '                                       </div>'  +
+  '                                       <div class="col-sm-4">' +
+  '                                           <div class="form-group mb-4"> <label data-toggle="tooltip" title="Three digit CV code on the back of your card">'+
+  '                                               <h6 class="text-secondary">CVV <i class="fa fa-question-circle d-inline"></i></h6>'+
+  '                                             </label> <input type="text" required class="form-control">'+
+  '                                           </div>'+
+  '                                       </div>'+
+  '                                   </div>'+
+  '                                 <div class="card-footer"> <button type="button" class=" btn btn-success text-white btn-block"> Confirm Payment </button>'+
+  '                               </form>'+
+  '                               </div>'+
+  '            </div>' );
+}
+}
+
+    }); // end of moreDetails click event
+  } //cardModal
+
 
 
 
 
 //filter
 function filterVehicles(dayys){
-  console.log(dayys, people);
   var cardImages = [];
   for (i = 0; i < vehicles.length; i++) {
-      console.log(vehicles[i].maxDay, vehicles[i].minDay, vehicles[i].minPeople, vehicles[i].maxpeople);
     if (((dayys <= vehicles[i].maxDay) && (dayys >= vehicles[i].minDay)) && ((people >= vehicles[i].minPeople) && (people <= vehicles[i].maxpeople ))) {
-      console.log(vehicles[i].name);
       cardImages.push(vehicles[i].photo);
-      console.log(cardImages);
 
       displayCards(i);
       cardModal(i);
